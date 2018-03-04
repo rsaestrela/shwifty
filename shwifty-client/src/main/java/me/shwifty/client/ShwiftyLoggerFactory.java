@@ -13,16 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.estrela.shwifty;
+package me.shwifty.client;
 
-import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
-import org.springframework.data.mongodb.repository.Tailable;
-import reactor.core.publisher.Flux;
+import ch.qos.logback.classic.Level;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.slf4j.Logger;
 
+public class ShwiftyLoggerFactory {
 
-public interface LogLineRepository extends ReactiveMongoRepository<LogLine, Long> {
+    private static final CloseableHttpClient CLIENT = HttpClients.createDefault();
 
-	@Tailable
-	Flux<LogLine> findLogLinesBy();
+    private static Level level = Level.INFO;
+
+    public static Logger getLogger(Class clazz) {
+        return new ShwiftyLogger(CLIENT, clazz, level);
+    }
+
+    public static void setLevel(Level level) {
+        ShwiftyLoggerFactory.level = level;
+    }
 
 }

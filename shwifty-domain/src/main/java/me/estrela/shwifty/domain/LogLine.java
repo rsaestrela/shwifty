@@ -13,31 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.estrela.shwifty;
+package me.estrela.shwifty.domain;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class LogLine {
 
-    private LogLevel logLevel;
-    private String logLine;
+    private String level;
+    private String msg;
 
-    public LogLine(LogLevel logLevel, String logLine) {
-        this.logLevel = logLevel;
-        this.logLine = logLine;
+    @JsonCreator
+    public LogLine(@JsonProperty("level") String level, @JsonProperty("msg") String msg) {
+        this.level = level;
+        this.msg = msg;
     }
 
-    public LogLevel getLogLevel() {
-        return logLevel;
+    public String getLevel() {
+        return level;
     }
 
-    public void setLogLevel(LogLevel logLevel) {
-        this.logLevel = logLevel;
+    public void setLevel(String level) {
+        this.level = level;
     }
 
-    public String getLogLine() {
-        return logLine;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setLogLine(String logLine) {
-        this.logLine = logLine;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }

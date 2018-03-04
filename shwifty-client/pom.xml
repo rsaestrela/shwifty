@@ -2,18 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.estrela</groupId>
-    <artifactId>shwifty</artifactId>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>shwifty-client</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>shwifty-client</module>
-        <module>shwifty-server</module>
-        <module>shwifty-domain</module>
-    </modules>
-
-    <packaging>pom</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -21,7 +14,42 @@
         <java.version>1.8</java.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <logback-classic.version>1.2.3</logback-classic.version>
+        <log4j-to-slf4j.version>2.10.0</log4j-to-slf4j.version>
+        <jul-to-slf4j.version>1.7.25</jul-to-slf4j.version>
+        <httpclient.version>4.5.4</httpclient.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>me.estrela</groupId>
+            <artifactId>shwifty-domain</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback-classic.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-to-slf4j</artifactId>
+            <version>${log4j-to-slf4j.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jul-to-slf4j</artifactId>
+            <version>${jul-to-slf4j.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${httpclient.version}</version>
+        </dependency>
+    </dependencies>
 
     <repositories>
         <repository>

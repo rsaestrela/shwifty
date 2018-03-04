@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.estrela.shwifty;
+package me.estrela.shwifty.domain;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RestController
 public class LogLineController {
@@ -31,15 +31,13 @@ public class LogLineController {
         this.logLineRepository = logLineRepository;
     }
 
-    @GetMapping(path = "/logs", produces = "application/stream+json")
+    @RequestMapping(path = "/logs", method = RequestMethod.GET, produces = "application/stream+json")
     public Flux<LogLine> getLogStream() {
         return logLineRepository.findLogLinesBy();
     }
 
-    @GetMapping(path = "/add")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void add(@RequestParam(value = "logLevel") LogLevel logLevel, @RequestParam(value = "logLine") String logLine) {
-        logLineRepository.insert(new LogLine(logLevel, logLine)).block();
+    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json")
+    public Mono<Void> add(@RequestBody Mono<LogLine> logLine) {
+        return logLineRepository.insert(logLine).then();
     }
-
 }
